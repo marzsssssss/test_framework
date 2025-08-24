@@ -14,6 +14,6 @@ def refresh_token():
     assert response.status_code == 200, f"Failed requests {response.text}"
 
     access_token = response.json().get('access_token')
-    os.environ['ACCESS_TOKEN'] = access_token
+    access_token = os.environ['ACCESS_TOKEN']
     print(access_token)
 
