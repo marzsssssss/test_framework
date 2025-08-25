@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from dotenv import set_key
 import requests
 import pytest
-
+from core.headers import Headers
 load_dotenv()
 
 # Только если запуск локальная перезаписать .env 
@@ -19,5 +19,19 @@ def init_tokens():
     refresh_token = response.json().get('tokens', {}).get('refresh', {}).get('token')
     set_key(".env", "ACCESS_TOKEN", access_token)
     set_key(".env", "REFRESH_TOKEN", refresh_token)
-
     return response
+
+
+@pytest.fixture()
+def get_currency_id():
+    headers = Headers().basic
+    response = requests.get(
+        url = f"{os.getenv('HOST')}/currencies/",
+        headers=headers
+    )
+    assert response.status_code == 200, f"Failed requests {response.text}"
+
+    currencies = response.json()
+    cur_usd = next((c for c in currencies if c.get('code') == 'USD'), None)
+    assert cur_usd is not None, f"Currency with code 'USD' not found"
+    return cur_usd['id']
