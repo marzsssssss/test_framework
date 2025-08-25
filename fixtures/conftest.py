@@ -32,6 +32,6 @@ def get_currency_id():
     assert response.status_code == 200, f"Failed requests {response.text}"
 
     currencies = response.json()
-    cur_usd = next((c for c in currencies if c.get('code') == 'USD'), None)
-    assert cur_usd is not None, f"Currency with code 'USD' not found"
+    cur_usd = next((c for c in currencies if c.get('code') == 'EUR'), None)
+    assert cur_usd is not None, f"Currency with code 'EUR' not found"
     return cur_usd['id']
