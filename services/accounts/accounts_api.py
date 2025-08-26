@@ -24,6 +24,6 @@ class AccountsAPI(Helper):
         )
         self.assert_response(response)
         model = AccountsModel(**response.json())
-        self.attach_respons(**response.json())
+        self.attach_respons(response.json())
         return model
         
