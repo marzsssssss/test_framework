@@ -22,7 +22,7 @@ def init_tokens():
     return response
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture()
 def get_currency_id():
     headers = Headers().basic
     response = requests.get(
@@ -32,6 +32,20 @@ def get_currency_id():
     assert response.status_code == 200, f"Failed requests {response.text}"
 
     currencies = response.json()
-    cur_usd = next((c for c in currencies if c.get('code') == 'EUR'), None)
-    assert cur_usd is not None, f"Currency with code 'EUR' not found"
-    return cur_usd['id']
+    cur_eur = next((c for c in currencies if c.get('code') == 'EUR'), None)
+    assert cur_eur is not None, "Currency with code 'EUR' not found "
+    return cur_eur['id']
+
+@pytest.fixture()
+def get_ewallet_id():
+    headers = Headers.basic
+    response = requests.get(
+        url=f"{os.getenv('HOST')}/accounts/ewallets/",
+        headers=headers
+    )
+    assert response.status_code == 200, f"Failed requests {response.text}"
+    
+    data = response.json().get('data',[])
+    ewallet_usd = next((c for c in data if c.get('currency', {}).get('code') == 'USD'), None)
+    assert ewallet_usd is not None, "Currency with code 'USD' not found"
+    return ewallet_usd['id']
