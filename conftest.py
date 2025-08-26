@@ -22,7 +22,7 @@ def init_tokens():
     return response
 
 
-@pytest.fixture()
+@pytest.fixture(scope='module')
 def get_currency_id():
     headers = Headers().basic
     response = requests.get(
