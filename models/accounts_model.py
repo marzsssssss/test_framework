@@ -10,8 +10,8 @@ class CurrencyModel(BaseModel):
     is_used: bool
     priority: int
     file_meta_id: UUID
-    flag: str
+    flag: str | None
 
-class AccountsModel(BaseModel):
+class AccountsModel(BaseModel): 
     currency: CurrencyModel
     amount: str
