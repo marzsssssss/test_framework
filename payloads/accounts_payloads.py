@@ -1,3 +1,5 @@
+
+
 class Payloads:
 
     @staticmethod
@@ -5,5 +7,6 @@ class Payloads:
         return {
             'currency_id': get_currency_id
         }
+    
     
     
