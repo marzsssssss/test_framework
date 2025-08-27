@@ -13,3 +13,6 @@ class TestAccouts(BaseTest):
     
     def test_get_entity_ewallets(self,get_ewallet_id):
         self.accounts_api.get_entity_ewallets(get_ewallet_id)
+
+    def test_create_entity_ewallet(self,get_ewallet_id):
+        self.accounts_api.create_entity_ewallet(get_ewallet_id)

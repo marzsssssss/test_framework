@@ -12,7 +12,7 @@ class Headers():
         'Authorization': f"Bearer {os.getenv('ACCESS_TOKEN')}"
     }
 
-    missing_toke = {}
+    missing_token = {}
     empty_token = {
         'Authorization': f"Bearer "
     }
