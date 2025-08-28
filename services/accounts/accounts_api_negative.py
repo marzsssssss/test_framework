@@ -22,7 +22,7 @@ class AccountsNegativeAPI(Helper):
     @allure.step('Get Accounts Ewallet Negativ')
     def get_accounts_ewallet_negativ(self, headers, expected_status):
         response = requests.get(
-            url = self.endpoints.get_accouts_ewallet,
+            url = self.endpoints.get_accounts_ewallet,
             headers=headers
         )
         self.assert_bad_response(response, expected_status)
