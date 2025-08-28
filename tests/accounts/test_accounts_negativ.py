@@ -1,11 +1,15 @@
 import pytest
+import allure
 
 from config.base_test import BaseTest
 from core.headers import Headers
 
+@allure.epic('Test Services - Accounts')
+@allure.feature('Test Services - Accounts - Negative')
 class TestAccountsNegativ(BaseTest):
 
 
+    @allure.title('Negative Tests Accounts Headers')
     @pytest.mark.parametrize(
         ('headers ,expected_status'), [
             (Headers.empty_token, 401),
@@ -25,7 +29,7 @@ class TestAccountsNegativ(BaseTest):
         self.accounts_api_negativ.logger.info(f'Test launch Negative Headers  - GET /accounts/ewallets/{get_ewallet_id}/, headers -  {headers} - expected status - {expected_status}')
         self.accounts_api_negativ.get_entity_ewallets(headers,expected_status, get_ewallet_id)
 
-
+    @allure.title('Negative Tests Accounts UUID')
     @pytest.mark.parametrize(
         ('uuid ,expected_status_create, expected_status_get'), [
             ('invalid uuid',422, 404),
