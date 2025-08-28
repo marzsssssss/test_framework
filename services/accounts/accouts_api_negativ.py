@@ -16,7 +16,7 @@ class AccountsNegativAPI(Helper):
             url = self.endpoints.total_amount(uuid),
             headers=headers
         )
-        self.assert_auth_bad_response(response, expected_status)
+        self.assert_bad_response(response, expected_status)
         self.attach_response(response.json())
         
     @allure.step('Get Accounts Ewallet Negativ')
@@ -25,7 +25,7 @@ class AccountsNegativAPI(Helper):
             url = self.endpoints.get_accouts_ewallet,
             headers=headers
         )
-        self.assert_auth_bad_response(response, expected_status)
+        self.assert_bad_response(response, expected_status)
         self.attach_response(response.json())
     
     @allure.step('Get Ewallet Currencies Negativ')
@@ -34,7 +34,7 @@ class AccountsNegativAPI(Helper):
             url = self.endpoints.get_ewallet_currencies,
             headers=headers
         )
-        self.assert_auth_bad_response(response, expected_status)
+        self.assert_bad_response(response, expected_status)
         self.attach_response(response.json())
 
     @allure.step('Get Entity Ewallets Negativ')
@@ -43,7 +43,7 @@ class AccountsNegativAPI(Helper):
             url = self.endpoints.get_entity_ewallets(uuid),
             headers=headers
         )
-        self.assert_auth_bad_response(response, expected_status)
+        self.assert_bad_response(response, expected_status)
         self.attach_response(response.json())
     
     @allure.step('Create Entity Ewallet Negativ')
@@ -53,5 +53,5 @@ class AccountsNegativAPI(Helper):
             headers = headers,
             json = uuid
         )
-        self.assert_auth_bad_response(response, expected_status)
+        self.assert_bad_response(response, expected_status)
         self.attach_response(response.json())

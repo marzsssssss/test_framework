@@ -14,8 +14,8 @@ class Helper():
         else:
             raise ValueError(f'Incorrect response object {response.status_code}/{response.json()}')
         
-    def assert_auth_bad_response(self, response, expected_status):
+    def assert_bad_response(self, response, expected_status):
         if response.status_code == expected_status:
             return response
         else:
-            raise ValueError(f'Problem with auth {response.status_code}/{response.json()}')
+            raise ValueError(f'Problem with bad response {response.status_code}/{response.json()}')
