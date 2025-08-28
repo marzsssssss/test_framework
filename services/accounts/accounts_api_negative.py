@@ -4,7 +4,7 @@ import allure
 from utils.helper import Helper 
 from services.accounts.endpoints import Endpoints
 
-class AccountsNegativAPI(Helper):
+class AccountsNegativeAPI(Helper):
 
     def __init__(self):
         super().__init__()
