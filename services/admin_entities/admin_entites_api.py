@@ -38,5 +38,3 @@ class AdminEntitesAPI(Helper):
             json = self.payloads.adjust_balance(get_ewallet_id)
         )
         self.assert_create_response(response)
-        self.attach_response_to_allure(**response.json())
-        return response.json()

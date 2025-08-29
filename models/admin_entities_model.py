@@ -17,7 +17,7 @@ class CurrencyModel(BaseModel):
 class MetaModel(BaseModel):
     limit: int
     total: int
-    currency_page: int
+    current_page: int
     last_page: int
 
 class Wallet(BaseModel):

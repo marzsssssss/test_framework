@@ -11,5 +11,5 @@ class Payloads:
             "invoice_direction": "SEND",
             "account_ewallet_id": ewallet_id,
             "amount": fake.random_int(min=50,max=100),
-            "hidden": fake.boolean
+            "hidden": fake.boolean()
             }
