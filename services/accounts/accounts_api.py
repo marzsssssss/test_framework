@@ -5,8 +5,7 @@ from utils.helper import Helper
 from services.accounts.endpoints import Endpoints
 from core.headers import Headers
 from payloads.accounts_payloads import Payloads
-from models.accounts_model import AccountsModel
-from models.accounts_model import CreateEntityEwalletModel
+from models.accounts_model import TotalAmountModel, CreateEntityEwalletModel, GetAccountAmountModel, GetEwalletCurrenciesModel, GetEwalletsEntityModel
 
 class AccountsAPI(Helper):
 
@@ -23,7 +22,7 @@ class AccountsAPI(Helper):
             headers=self.headers.basic,
         )
         self.assert_response(response)
-        model = AccountsModel(**response.json())
+        model = TotalAmountModel(**response.json())
         self.attach_response_to_allure(response)
         return model
         
@@ -34,8 +33,9 @@ class AccountsAPI(Helper):
             headers=self.headers.basic
         )
         self.assert_response(response)
+        model = GetAccountAmountModel(**response.json())
         self.attach_response_to_allure(response)
-        return response.json()
+        return model
     
     @allure.step('Get Ewallet Currencies')
     def get_ewallet_currencies(self):
@@ -44,8 +44,9 @@ class AccountsAPI(Helper):
             headers=self.headers.basic
         )
         self.assert_response(response)
+        model = GetEwalletCurrenciesModel(**response.json())
         self.attach_response_to_allure(response)
-        return response.json()
+        return model
 
     @allure.step('Get Entity Ewallets')
     def get_entity_ewallets(self,currency_id):
@@ -54,8 +55,9 @@ class AccountsAPI(Helper):
             headers=self.headers.basic
         )
         self.assert_response(response)
+        model = GetEwalletsEntityModel(**response.json())
         self.attach_response_to_allure(response)
-        return response.json()
+        return model
     
     @allure.step('Create Entity Ewallet')
     def create_entity_ewallet(self, currency_id):
