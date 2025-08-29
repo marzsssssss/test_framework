@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from uuid import UUID
+from typing import List
 from datetime import datetime
 
 class CurrencyModel(BaseModel):
@@ -13,12 +14,14 @@ class CurrencyModel(BaseModel):
     file_meta_id: UUID
     flag: str | None
 
-class AccountsModel(BaseModel): 
-    currency: CurrencyModel
-    amount: str
+class MetaModel(BaseModel):
+    limit: int
+    total: int
+    currency_page: int
+    last_page: int
 
-class CreateEntityEwalletModel(BaseModel):
-    created_at: datetime 
+class Wallet(BaseModel):
+    created_at: datetime
     updated_at: datetime
     deleted_at: None
     id: UUID
@@ -27,3 +30,7 @@ class CreateEntityEwalletModel(BaseModel):
     currency: CurrencyModel
     entity_id: UUID
     type: str
+
+class GetEntitiesModel(BaseModel):
+    meta: MetaModel
+    data: List[Wallet]

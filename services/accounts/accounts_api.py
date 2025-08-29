@@ -6,7 +6,7 @@ from services.accounts.endpoints import Endpoints
 from core.headers import Headers
 from payloads.accounts_payloads import Payloads
 from models.accounts_model import AccountsModel
-from models.accounts_model import CreateEntityEwallet
+from models.accounts_model import CreateEntityEwalletModel
 
 class AccountsAPI(Helper):
 
@@ -65,6 +65,6 @@ class AccountsAPI(Helper):
             json = self.payloads.entity_ewallet(currency_id)
         )
         self.assert_response(response)
-        model = CreateEntityEwallet(**response.json())
+        model = CreateEntityEwalletModel(**response.json())
         self.attach_response_to_allure(response)
         return model

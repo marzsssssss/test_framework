@@ -20,6 +20,14 @@ class Helper():
             self.logger.error(f'Status code not 200. Status code - {response.status_code}, JSON - {response.json()}')
             raise ValueError(f'Status code not 200. Status code - {response.status_code}, JSON - {response.json()}')
         
+    def assert_create_response(self,response):
+        if response.status_code == 204:
+            self.logger.info(f"Correct create response: {response.status_code}")
+            return True, response.json()
+        else:
+            self.logger.error(f'Status code not 204. Status code - {response.status_code}, JSON - {response.json()}')
+            raise ValueError(f'Status code not 204. Status code - {response.status_code}, JSON - {response.json()}')
+        
     def assert_bad_response(self, response, expected_status):
         if response.status_code != expected_status:
             self.logger.error(f'Status code not equal expected status. Status code - {response.status_code}, JSON - {response.json()}')
