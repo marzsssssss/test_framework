@@ -20,9 +20,9 @@ class AdminEntitesAPI(Helper):
 
     @allure.step('Admin - Get Entities Accounts List')    
     def get_entities_accounts_list(self):
-        unovay_name = os.getenv('UNOVAY_NAME')
+        un_name = os.getenv('UN_NAME')
         response = requests.get(
-            url = self.endpoints.get_entities_accounts_list(unovay_name),
+            url = self.endpoints.get_entities_accounts_list(un_name),
             headers=self.headers.basic
         )
         self.assert_response(response)
