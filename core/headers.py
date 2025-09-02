@@ -13,6 +13,7 @@ class Headers():
     }
 
     missing_token = {}
+    
     empty_token = {
         'Authorization': f"Bearer "
     }
