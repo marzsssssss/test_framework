@@ -4,7 +4,6 @@ import allure
 from config.base_test import BaseTest
 from core.headers import Headers
 
-@allure.epic('Test Services - Accounts')
 @allure.feature('Test Services - Accounts - Negative')
 class TestAccountsNegativ(BaseTest):
 
@@ -19,7 +18,7 @@ class TestAccountsNegativ(BaseTest):
     )
     def test_accounts_headers(self, headers, expected_status, get_currency_id, get_ewallet_id):
         self.accounts_api_negative.logger.info(f'Test launch Negative Headers  - GET /accounts/total-amount/, headers -  {headers} - expected status - {expected_status}')
-        self.accounts_api_negative.total_amount_negativ(headers, expected_status,get_currency_id) 
+        self.accounts_api_negative.total_amount_negative(headers, expected_status,get_currency_id) 
         self.accounts_api_negative.logger.info(f'Test launch Negative Headers  - POST /accounts/ewallets/, headers -  {headers} - expected status - {expected_status}')
         self.accounts_api_negative.create_entity_ewallet(headers, expected_status, get_currency_id) 
         self.accounts_api_negative.logger.info(f'Test launch Negative Headers  - GET  /accounts/ewallets/, headers -  {headers} - expected status - {expected_status}')
@@ -38,10 +37,10 @@ class TestAccountsNegativ(BaseTest):
         ]
     )
     def test_accounts_uuid(self, uuid, expected_status_create, expected_status_get, headers = Headers.basic):
-        self.accounts_api_negative.logger.info(f'Test launch Negative UUID  - POST /accounts/ewallets/{uuid}, uuid  -  {uuid} - expected status - {expected_status_create}')
+        self.accounts_api_negative.logger.info(f'Test launch Negative UUID  - POST /accounts/ewallets/, uuid  -  {uuid} - expected status - {expected_status_create}')
         self.accounts_api_negative.create_entity_ewallet(headers, expected_status_create, uuid)
         self.accounts_api_negative.logger.info(f'Test launch Negative UUID  - GET /accounts/total-amount/{uuid}, uuid  -  {uuid} - expected status - {expected_status_get}')
-        self.accounts_api_negative.total_amount_negativ(headers, expected_status_get,uuid)
+        self.accounts_api_negative.total_amount_negative(headers, expected_status_get,uuid)
         self.accounts_api_negative.logger.info(f'Test launch Negative UUID  - GET /accounts/ewallets/{uuid}/, uuid  -  {uuid} - expected status - {expected_status_get}')
         self.accounts_api_negative.get_entity_ewallets(headers,expected_status_get, uuid)
 

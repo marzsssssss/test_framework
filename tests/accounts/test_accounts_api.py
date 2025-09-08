@@ -1,10 +1,12 @@
 import allure
+import pytest
 
 from config.base_test import BaseTest
 
 
 @allure.epic('Test Services - Accounts')
 @allure.feature('Test Services - Accounts - Smoke')
+@pytest.mark.smoke
 class TestAccounts(BaseTest):
 
     @allure.title('Test GET /accounts/total-amount/{currency_id}')

@@ -10,7 +10,7 @@ from models.admin_entities_model import GetEntitiesModel
 
 
 
-class AdminEntitesAPI(Helper):
+class AdminEntitiesAPI(Helper):
     def __init__(self):
         super().__init__()
         self.endpoints = Endpoints()
@@ -19,10 +19,9 @@ class AdminEntitesAPI(Helper):
 
 
     @allure.step('Admin - Get Entities Accounts List')    
-    def get_entities_accounts_list(self):
-        un_name = os.getenv('UN_NAME')
+    def get_entities_accounts_list(self,name):
         response = requests.get(
-            url = self.endpoints.get_entities_accounts_list(un_name),
+            url = self.endpoints.get_entities_accounts_list(name),
             headers=self.headers.basic
         )
         self.assert_response(response)

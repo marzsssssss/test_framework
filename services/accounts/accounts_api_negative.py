@@ -10,8 +10,8 @@ class AccountsNegativeAPI(Helper):
         super().__init__()
         self.endpoints = Endpoints()
 
-    @allure.step('Total Amount User Negativ')
-    def total_amount_negativ(self, headers, expected_status,uuid):
+    @allure.step('Total Amount User Negative')
+    def total_amount_negative(self, headers, expected_status,uuid):
         response = requests.get(
             url = self.endpoints.total_amount(uuid),
             headers=headers
@@ -19,7 +19,7 @@ class AccountsNegativeAPI(Helper):
         self.assert_bad_response(response, expected_status)
         self.attach_response_to_allure(response)
         
-    @allure.step('Get Accounts Ewallet Negativ')
+    @allure.step('Get Accounts Ewallet Negative')
     def get_accounts_ewallet_negativ(self, headers, expected_status):
         response = requests.get(
             url = self.endpoints.get_accounts_ewallet,
@@ -28,7 +28,7 @@ class AccountsNegativeAPI(Helper):
         self.assert_bad_response(response, expected_status)
         self.attach_response_to_allure(response)
     
-    @allure.step('Get Ewallet Currencies Negativ')
+    @allure.step('Get Ewallet Currencies Negative')
     def get_ewallet_currencies(self, headers, expected_status):
         response = requests.get(
             url = self.endpoints.get_ewallet_currencies,
@@ -37,7 +37,7 @@ class AccountsNegativeAPI(Helper):
         self.assert_bad_response(response, expected_status)
         self.attach_response_to_allure(response)
 
-    @allure.step('Get Entity Ewallets Negativ')
+    @allure.step('Get Entity Ewallets Negative')
     def get_entity_ewallets(self, headers, expected_status, uuid):
         response = requests.get(
             url = self.endpoints.get_entity_ewallets(uuid),
@@ -46,12 +46,12 @@ class AccountsNegativeAPI(Helper):
         self.assert_bad_response(response, expected_status)
         self.attach_response_to_allure(response)
     
-    @allure.step('Create Entity Ewallet Negativ')
+    @allure.step('Create Entity Ewallet Negative')
     def create_entity_ewallet(self,headers, expected_status, uuid):
         response = requests.post(
             url=self.endpoints.create_entity_ewallet,
             headers = headers,
-            json = uuid
+            json = {"currency_id": uuid}
         )
         self.assert_bad_response(response, expected_status)
         self.attach_response_to_allure(response)

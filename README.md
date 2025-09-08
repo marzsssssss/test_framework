@@ -13,7 +13,7 @@ Start Flow Tests
 pytest tests/accounts/test_accounts_flow.py
 ```
 
-Start Negativ Tests
+Start Negative Tests
 ```sh
 pytest tests/accounts/test_accounts_negative.py
 ```

@@ -2,9 +2,7 @@ import allure
 
 from config.base_test import BaseTest
 
-@allure.epic('Test Services - Accounts')
 @allure.feature('Test Services - Accounts - Flow')
-
 class TestAccountsFlow(BaseTest):
 
     @allure.title('Test Flow POST ewallet and get this ewallet')
