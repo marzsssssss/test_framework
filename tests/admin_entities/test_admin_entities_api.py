@@ -1,9 +1,11 @@
 import allure
 import os
+import pytest
 
 from config.base_test import BaseTest
 
 @allure.epic('Test Services - Admin Entities')
+@pytest.mark.adminentities
 class TestAdminEntites(BaseTest):
 
     @allure.title('Test  GET /admin/entities/accounts/un_name')
