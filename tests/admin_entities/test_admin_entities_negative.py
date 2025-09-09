@@ -10,13 +10,12 @@ from payloads.admin_entities_payloads import Payloads
 fake = Faker()
 
 @allure.feature('Test Services - Admin Entities - Negative')
-@pytest.mark.adminentities
 class TestAdminEntitiesNegative(BaseTest):
 
     name = os.getenv('UN_NAME')
     json = lambda ewallet_id: Payloads.adjust_balance(ewallet_id)
 
-    allure.title('Negative Tests Accounts Headers')
+    @allure.title('Negative Tests Accounts Headers')
     @pytest.mark.parametrize(
         ('headers', 'expected_status', 'name'), [
             (Headers.empty_token, 401, name),
@@ -44,15 +43,37 @@ class TestAdminEntitiesNegative(BaseTest):
         self.admin_entities_api_negative.get_entities_accounts(name, headers, expected_status)
 
 
-    @allure.title('Test POST - /admin/entities/accounts/adjust-balance')
+    @allure.title('Test POST - Missing Required Fields')
     @pytest.mark.parametrize(
-        ('field', 'expected_status'), [
-            ('invoice_direction',422),
-            ('account_ewallet_id',422),
-            ('amount',422)
+        'field', [
+            'invoice_direction',
+            'account_ewallet_id',
+            'amount',
+            'hidden'
         ]
     )
-    def test_admin_post_accounts_adjust(self, field, get_ewallet_id, expected_status, headers = Headers.basic):
-        json = Payloads().without_field(field, get_ewallet_id)
-        self.admin_entities_api_negative.logger.info(f'Test launch Negative Required key  - POST - /admin/entities/accounts/adjust-balance, expected status - {expected_status}, field - {field}')
-        self.admin_entities_api_negative.post_entities_accounts_adjust(json, headers, expected_status)
+    def test_missing_required_fields(self, field, get_ewallet_id, headers=Headers.basic):
+        json_required = Payloads().without_field(field, get_ewallet_id)
+        expected_status = 204 if field == 'hidden' else 422
+        self.admin_entities_api_negative.logger.info(
+            f'Test launch Missing Required Field - POST, field: {field}, expected_status: {expected_status}'
+        )
+        self.admin_entities_api_negative.post_entities_accounts_adjust(json_required, headers, expected_status)
+
+
+    @allure.title('Test POST - Invalid Field Values')
+    @pytest.mark.parametrize(
+        'field', [
+            'invoice_direction',
+            'account_ewallet_id',
+            'amount',
+            'hidden'
+        ]
+    )
+    def test_invalid_field_values(self, field, get_ewallet_id, headers=Headers.basic):
+        payload_keys = Payloads().field_test(field, get_ewallet_id)
+        for payload in payload_keys:
+            self.admin_entities_api_negative.logger.info(
+                f'Test launch Invalid Field Value - POST, field: {field}, payload: {payload}'
+            )
+            self.admin_entities_api_negative.post_entities_accounts_adjust(payload, headers, expected_status=422)   

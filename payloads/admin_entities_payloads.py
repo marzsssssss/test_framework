@@ -5,13 +5,6 @@ fake = Faker()
 
 class Payloads:
 
-    base_payload = {
-        "invoice_direction": "SEND",
-        "account_ewallet_id": fake.uuid4(),
-        "amount": fake.random_int(min=50, max=100),
-        "hidden": fake.boolean()
-    }
-
     @staticmethod
     def adjust_balance(ewallet_id):
         return {
@@ -28,3 +21,37 @@ class Payloads:
         payload_copy = payload.copy()
         payload_copy.pop(field, None)
         return payload_copy
+    
+    @staticmethod
+    def field_test(field, ewallet_id):
+        payload = Payloads.adjust_balance(ewallet_id)
+        payloads = []
+
+       
+        negative_values = {
+            "invoice_direction": [
+                fake.pystr(min_chars=4, max_chars=4), 
+                fake.random_number(digits=3),                                       
+            ],
+            "account_ewallet_id": [          
+                fake.random_number(digits=3),
+                fake.boolean()           
+            ],
+            "amount": [
+                -10,                                   
+                "ten",                                  
+                0,                                       
+            ],
+            "hidden": [                                  
+                "ten",                                  
+                fake.uuid4(),
+                '123'                                       
+            ]
+        }
+
+        for value in negative_values.get(field, []):
+            pl = payload.copy()
+            pl[field] = value
+            payloads.append(pl)
+
+        return payloads
