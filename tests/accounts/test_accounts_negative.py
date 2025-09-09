@@ -1,12 +1,14 @@
 import pytest
 import allure
+from faker import Faker 
 
 from config.base_test import BaseTest
 from core.headers import Headers
 
 @allure.feature('Test Services - Accounts - Negative')
-class TestAccountsNegativ(BaseTest):
+class TestAccountsNegative(BaseTest):
 
+    fake = Faker()
 
     @allure.title('Negative Tests Accounts Headers')
     @pytest.mark.parametrize(
@@ -33,7 +35,7 @@ class TestAccountsNegativ(BaseTest):
         ('uuid ,expected_status_create, expected_status_get'), [
             ('invalid uuid',422, 404),
             ('12345', 422, 404),
-            ('00000000-0000-0000-0000-000000000000',422, 404),
+            (fake.uuid4(),422, 404),
         ]
     )
     def test_accounts_uuid(self, uuid, expected_status_create, expected_status_get, headers = Headers.basic):

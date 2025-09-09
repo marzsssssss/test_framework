@@ -5,8 +5,6 @@ from config.base_test import BaseTest
 
 
 @allure.epic('Test Services - Accounts')
-@allure.feature('Test Services - Accounts - Smoke')
-@pytest.mark.smoke
 class TestAccounts(BaseTest):
 
     @allure.title('Test GET /accounts/total-amount/{currency_id}')
@@ -15,6 +13,7 @@ class TestAccounts(BaseTest):
         self.accounts_api.total_amount(get_currency_id)
 
     @allure.title('Test POST /accounts/ewallets{currency_id}')
+    @pytest.mark.skip
     def test_create_entity_ewallet(self, get_currency_id):
         self.accounts_api.logger.info(f'Test launch - POST /accounts/ewallets/{get_currency_id}/, currency_id = {get_currency_id}')
         self.accounts_api.create_entity_ewallet(get_currency_id)

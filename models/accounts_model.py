@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from uuid import UUID
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 class CurrencyModel(BaseModel):
     id: UUID
@@ -66,7 +66,7 @@ class CurrenciesModel(BaseModel):
     is_wallet_exists: bool
 
 class GetEwalletCurrenciesModel(BaseModel):
-    List[CurrenciesModel]
+    data: List[CurrenciesModel]
 
 class GetEwalletsEntityModel(BaseModel):
     created_at: datetime

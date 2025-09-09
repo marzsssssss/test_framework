@@ -44,7 +44,8 @@ class AccountsAPI(Helper):
             headers=self.headers.basic
         )
         self.assert_response(response)
-        model = GetEwalletCurrenciesModel(**response.json())
+        response_json = response.json()
+        model = GetEwalletCurrenciesModel(data = response_json)
         self.attach_response_to_allure(response)
         return model
 
