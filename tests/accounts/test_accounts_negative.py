@@ -35,7 +35,7 @@ class TestAccountsNegative(BaseTest):
         ('uuid ,expected_status_create, expected_status_get'), [
             ('invalid uuid',422, 404),
             ('12345', 422, 404),
-            (fake.uuid4(),422, 404),
+            (fake.uuid4(), 400, 404),
         ]
     )
     def test_accounts_uuid(self, uuid, expected_status_create, expected_status_get, headers = Headers.basic):
