@@ -24,5 +24,5 @@ pytest tests/accounts/test_accounts_negativ.py --alluredir=reports/allure
 
 Up Allure Server
 ```sh
-% allure serve reports/allure   
+allure serve reports/allure   
 ```
