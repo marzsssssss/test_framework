@@ -1,18 +1,27 @@
 import os
-from dotenv import load_dotenv
-from dotenv import set_key
-import requests
-import pytest
+import httpx
+import pytest_asyncio
+
+from dotenv import load_dotenv, set_key
+
 from core.headers import Headers
+from config.base_test import BaseTest
+
 load_dotenv()
 
+@pytest_asyncio.fixture()
+async def base():
+    base = BaseTest()
+    return base
+
 # Только если запуск локальная перезаписать .env 
-@pytest.fixture(scope='session', autouse=True)
-def init_tokens():
-    response = requests.post(
-        url=f"{os.getenv('HOST')}/auth/refresh/",
-        json = {'refresh_token': os.getenv('REFRESH_TOKEN')}
-    )
+@pytest_asyncio.fixture(scope='session', autouse=True)
+async def init_tokens():
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            url=f"{os.getenv('HOST')}/auth/refresh/",
+            json = {'refresh_token': os.getenv('REFRESH_TOKEN')}
+        )
     assert response.status_code == 200, f"Failed requests {response.text}"
 
     access_token = response.json().get('tokens', {}).get('access', {}).get('token')
@@ -22,13 +31,12 @@ def init_tokens():
     return response
 
 
-@pytest.fixture()
-def get_currency_id():
-    headers = Headers().basic
-    response = requests.get(
-        url = f"{os.getenv('HOST')}/currencies/",
-        headers=headers
-    )
+@pytest_asyncio.fixture()
+async def get_currency_id():
+    async with httpx.AsyncClient(headers = Headers().basic) as client:
+        response = await client.get(
+            url = f"{os.getenv('HOST')}/currencies/",
+        )
     assert response.status_code == 200, f"Failed requests {response.text}"
 
     currencies = response.json()
@@ -36,13 +44,12 @@ def get_currency_id():
     assert cur_eur is not None, "Currency with code 'EUR' not found "
     return cur_eur['id']
 
-@pytest.fixture()
-def get_ewallet_id():
-    headers = Headers.basic
-    response = requests.get(
-        url=f"{os.getenv('HOST')}/accounts/ewallets/",
-        headers=headers
-    )
+@pytest_asyncio.fixture()
+async def get_ewallet_id():
+    async with httpx.AsyncClient(headers = Headers().basic) as client:
+        response = await client.get(
+            url=f"{os.getenv('HOST')}/accounts/ewallets/",
+        )
     assert response.status_code == 200, f"Failed requests {response.text}"
     
     data = response.json().get('data',[])
